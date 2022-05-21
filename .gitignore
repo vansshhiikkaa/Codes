@@ -1,52 +1,21 @@
-# Prerequisites
-*.d
+#include <stdio.h>
+#include <unistd.h> //Header file for sleep(). man 3 sleep for details.
+#include <pthread.h>
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+// A normal C function that is executed as a thread
+void *myThread(void *vargp)
+{
+	sleep(1);
+	printf("0");
+	///printing required output
+	return NULL;
+}
 
-# Linker output
-*.ilk
-*.map
-*.exp
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
-
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+int main()
+{
+	pthread_t thread_id;
+	///initializing a thread
+	pthread_create(&thread_id, NULL, myThread, NULL);
+	pthread_join(thread_id, NULL);
+	exit(0);
+}
